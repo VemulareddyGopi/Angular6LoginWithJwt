@@ -1,0 +1,39 @@
+
+<input type="button" value="logout" class="btn btn-success" (click)="logout()" /> 
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-6">
+          <select [(ngModel)]="pageCount" class="input-email form-control sd-drop ng-pristine ng-valid ng-touched" style="width:70px !important;">
+            <option value=5>5</option>
+            <option value=10>10</option>
+            <option  value=15>15</option>
+            <option  value=20>20</option>
+          </select>
+      </div>
+    <nav class="navbar">
+      <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
+    </nav>
+    <table class="table">
+      <thead>
+        <tr>
+         
+          <th (click)="sort('Name')">Name
+            <span class="glyphicon sort-icon"  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('Email')">Email
+            <span class="glyphicon sort-icon"  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users | orderBy: key : reverse | filter:filter | paginate: { itemsPerPage: pageCount, currentPage: p };">
+        
+          <td>{{user.Name}}</td>
+          <td>{{user.Email}}</td>
+        </tr>
+      </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </table>
+  </div>
+</div>
